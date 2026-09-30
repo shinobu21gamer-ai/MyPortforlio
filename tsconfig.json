@@ -7,9 +7,7 @@
     "types": [
       "astro/client"
     ],
-    "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
