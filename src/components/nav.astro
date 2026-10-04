@@ -2,189 +2,146 @@
 interface NavItem {
   label: string;
   href: string;
-  icon: string;
 }
 
 const navItems: NavItem[] = [
-  {
-    label: "Home",
-    href: "#home",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z"></path></svg>`,
-  },
-  {
-    label: "Projects",
-    href: "#projects",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M4 5V19H20V7H11.5858L9.58579 5H4ZM12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5Z"></path></svg>`,
-  },
-  {
-    label: "Contact",
-    href: "#contact",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg>`,
-  },
+  { label: "Home", href: "#home" },
+  { label: "Work", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 ---
 
-<div class="flex justify-center w-full">
+<div class="pointer-events-none fixed inset-x-0 bottom-5 z-[100] flex justify-center md:bottom-8 md:top-8 md:bottom-auto">
   <nav
     id="main-nav"
-    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--background)] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]"
+    class="pointer-events-auto border border-[var(--line)] bg-[var(--panel)]/70 backdrop-blur-xl transition-[border-color,box-shadow] duration-500 ease-out md:w-auto"
   >
-    <div class="container mx-auto flex justify-center items-center p-3">
-      <ul
-        class="flex w-full justify-between md:space-x-6 md:justify-center md:gap-12 gap-6"
-      >
-        {
-          navItems.map((item) => (
-            <li class="flex-1 md:flex-none">
-              <a
-                href={item.href}
-                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"
-              >
-                <div class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block" />
-                <span class="md:hidden flex items-center justify-center w-6 h-6">
-                  <fragment set:html={item.icon} />
-                </span>
-                <span class="hidden md:inline-block">{item.label}</span>
-                <span class="md:hidden">{item.label}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <ul class="flex items-center gap-1 p-1.5 md:gap-2">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              data-nav
+              class="nav-link group relative flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-dim)] transition-colors duration-300 hover:text-[var(--ink)] md:px-5 md:py-2.5 md:text-xs"
+            >
+              <span class="nav-dot absolute left-0 top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-[var(--acid)] opacity-0 transition-all duration-300 group-hover:opacity-60 md:-left-2" />
+              <span class="nav-label">{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </nav>
 </div>
+
 <style>
-  nav {
-    transform: translateX(-50%);
-    background-color: var(--background);
-    transition:
-      background-color 0.3s ease,
-      border-radius 0.3s ease,
-      border-color 0.3s ease;
-  }
-
   nav.scrolling {
-    background-color: var(--component-bg);
-    border-color: #ffffff10;
-    border-radius: 9999px;
-  }
-
-  nav a.active .nav-indicator {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
+    border-color: rgba(244, 244, 242, 0.14);
+    box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.85);
   }
 
   nav a.active {
-    color: white !important;
+    color: var(--ink);
+  }
+  nav a.active .nav-dot {
+    opacity: 1;
+  }
+  nav a.active .nav-label {
+    text-shadow: 0 0 18px rgba(200, 255, 77, 0.35);
   }
 
   @media (max-width: 767px) {
     nav {
-      width: 100% !important;
-      transform: translateX(-50%);
-      bottom: 0;
-      left: 50%;
-      position: fixed;
-      border-radius: 1rem 1rem 0 0;
-      border-color: #ffffff10;
+      width: min(92vw, 420px);
     }
-
-    nav.scrolling {
-      border-radius: 1rem 1rem 0 0;
-      background-color: var(--component-bg);
-    }
-
     body {
-      padding-bottom: 70px;
+      padding-bottom: 4.5rem;
     }
   }
 </style>
 
 <script>
   const nav = document.getElementById("main-nav");
-  const maxScroll = 1000;
-  let rafId: number | null = null;
 
+  // Pill contracts as you scroll — cinematic, and it never covers content.
+  let ticking = false;
   function updateNav() {
-    if (window.scrollY > 0) {
-      nav?.classList.add("scrolling");
-
-      const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
-      const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
-
-      const minWidth = 528;
-      const maxWidth = window.innerWidth * 0.8;
-      const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
-
-      if (window.innerWidth >= 768) {
-        nav?.style.setProperty("width", `${currentWidth}px`);
-      }
-    } else {
-      nav?.classList.remove("scrolling");
-      nav?.style.setProperty("width", "80%");
-    }
-    rafId = null;
+    nav?.classList.toggle("scrolling", window.scrollY > 24);
+    ticking = false;
   }
-
   window.addEventListener(
     "scroll",
     () => {
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateNav);
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateNav);
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
+  // Smooth anchor jumps.
+  document.querySelectorAll('a[data-nav]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
       e.preventDefault();
-      const target = e.currentTarget as HTMLAnchorElement;
-      const targetId = target.getAttribute("href")?.substring(1) || "";
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
+      const id = (anchor as HTMLAnchorElement).getAttribute("href")?.slice(1);
+      const target = id && document.getElementById(id);
+      (target as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-    const observerOptions = { threshold: 0.6 };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+  // Active section highlight.
+  const sections = document.querySelectorAll("section[id]");
+  const links = document.querySelectorAll("nav a[data-nav]");
+  const io = new IntersectionObserver(
+    (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => link.classList.remove("active"));
-          const id = entry.target.getAttribute("id");
-          const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
-        }
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute("id");
+        links.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === `#${id}`,
+          );
+        });
       });
-    };
+    },
+    { rootMargin: "-45% 0px -45% 0px" },
+  );
+  sections.forEach((section) => io.observe(section));
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
+  // Reveal-on-scroll, cheap and dependency-free.
+  const revealTargets = document.querySelectorAll(".reveal");
+
+  // Safety net: if the observer never fires (unsupported, or a headless
+  // viewport that reports zero height) reveal everything rather than leave
+  // the page blank.
+  const revealAll = () =>
+    revealTargets.forEach((el) => el.classList.add("is-in"));
+  setTimeout(() => {
+    if (!document.querySelector(".reveal:not(.is-in)")) return;
+    const anyVisible = [...revealTargets].some((el) => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    });
+    if (!anyVisible && window.innerHeight === 0) revealAll();
+  }, 1200);
+
+  if (!("IntersectionObserver" in window)) {
+    revealAll();
+  } else {
+    const revealIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            revealIO.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
     );
-    sections.forEach((section) => observer.observe(section));
-  });
+    revealTargets.forEach((el) => revealIO.observe(el));
+  }
 </script>
-
-<style>
-  @media (max-width: 767px) {
-    body {
-      padding-bottom: 70px;
-    }
-  }
-
-  nav a.active {
-    color: white !important;
-  }
-</style>

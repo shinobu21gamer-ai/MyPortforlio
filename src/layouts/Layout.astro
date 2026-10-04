@@ -10,12 +10,17 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{title} | Portfolio</title>
+    <title>{title === "Ian Rhod Venerable" ? "Ian Rhod Venerable — Web & Mobile Developer" : `${title} — Ian Rhod Venerable`}</title>
     <meta
       name="description"
-      content="Venerable Ian Rhod's portfolio, featuring personal work and an HRMS/POS system."
+      content="Ian Rhod Venerable — web & mobile developer in Trece Martires, Cavite. Builds HRMS/POS systems and community platforms. Playful code, serious shipping."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <script is:inline>
+      // Set before first paint: gates the reveal-on-scroll animations.
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="icon" type="image/png" href="/favicon.png" />
 
     <link
@@ -26,31 +31,26 @@ const { title } = Astro.props;
       crossorigin="anonymous"
     />
 
-    <meta
-      property="og:title"
-      content="Venerable Ian Rhod | Portfolio"
-    />
+    <meta property="og:title" content="Ian Rhod Venerable — Developer" />
     <meta
       property="og:description"
-      content="Portfolio of Venerable Ian Rhod, featuring personal work and an HRMS/POS system."
+      content="Web & mobile developer. Plays in pixels, ships systems."
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:site_name"
-      content="Venerable Ian Rhod Portfolio"
-    />
+    <meta property="og:site_name" content="Ian Rhod Venerable" />
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Venerable Ian Rhod",
-        "description": "Portfolio of Venerable Ian Rhod, featuring personal work and an HRMS/POS system."
+        "name": "Ian Rhod Venerable",
+        "jobTitle": "Web & Mobile Developer",
+        "address": { "@type": "PostalAddress", "addressLocality": "Trece Martires", "addressRegion": "Cavite", "addressCountry": "PH" },
+        "email": "mailto:shinobu21gamer@gmail.com"
       }
     </script>
   </head>
-  <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
+  <body class="bg-[--bg] text-[--ink] antialiased">
     <slot />
   </body>
 </html>
@@ -58,60 +58,121 @@ const { title } = Astro.props;
 <style is:global>
   @font-face {
     font-family: "Montserrat Variable";
-    src: url("/fonts/montserrat-latin-wght-normal.woff2")
-      format("woff2-variations");
+    src: url("/fonts/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Montserrat Variable Ext";
+    src: url("/fonts/montserrat-latin-ext-wght-normal.woff2") format("woff2-variations");
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
   }
 
   :root {
-    --background: #101010;
-    --sec: #a476ff;
-    --white: #dfdfdf;
-    --white-icon: #f3f3f398;
-    --white-icon-tr: #f3f3f310;
+    --bg: #0a0a0b;
+    --panel: #111113;
+    --panel-2: #161618;
+    --ink: #f4f4f2;
+    --ink-dim: #b8b8b4;
+    --ink-faint: #7a7a78;
+    --acid: #c8ff4d;
+    --acid-dim: #a8dd3f;
+    --line: rgba(244, 244, 242, 0.08);
+    --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
   }
 
   * {
-    font-family:
-      "Montserrat Variable",
-      -apple-system,
-      system-ui,
-      sans-serif;
+    font-family: "Montserrat Variable", "Montserrat Variable Ext",
+      -apple-system, system-ui, sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
   }
 
-  *::selection {
-    background-color: var(--sec);
-    color: var(--background);
+  ::selection {
+    background-color: var(--acid);
+    color: var(--bg);
   }
-
-  /* Scrollbar styles */
 
   ::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
   }
-
   ::-webkit-scrollbar-track {
-    background: var(--container);
-    border-radius: 30px;
+    background: var(--bg);
   }
-
   ::-webkit-scrollbar-thumb {
-    background: var(--background);
-    border-radius: 10px;
+    background: #2a2a2d;
+    border-radius: 8px;
+    border: 2px solid var(--bg);
   }
-
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
+    background: var(--acid);
   }
-
-  /* Scrollbar styles for Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
+    scrollbar-color: #2a2a2d var(--bg);
+  }
+
+  /* Cinematic film grain — one SVG noise tile, animated for a living texture */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: -100%;
+    z-index: 200;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    animation: grain-shift 9s steps(10) infinite;
+  }
+
+  @keyframes grain-shift {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-4%, -6%); }
+    20% { transform: translate(-8%, 3%); }
+    30% { transform: translate(5%, -7%); }
+    40% { transform: translate(-3%, 8%); }
+    50% { transform: translate(-7%, -2%); }
+    60% { transform: translate(6%, 4%); }
+    70% { transform: translate(2%, -8%); }
+    80% { transform: translate(-6%, 6%); }
+    90% { transform: translate(7%, -3%); }
+  }
+
+  /* Reveal-on-scroll. Scoped to html.js so that if the script never runs
+     (JS disabled, blocked, or an error before load) the content still shows. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grain::after,
+    .animate-marquee {
+      animation: none !important;
+    }
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
   }
 </style>

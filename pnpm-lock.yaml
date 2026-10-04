@@ -29,6 +29,9 @@ importers:
       astro:
         specifier: ^7.2.9
         version: 7.2.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.4.1)(jiti@1.21.7)(yaml@2.9.0)
+      cookie:
+        specifier: ^2.0.1
+        version: 2.0.1
       firebase:
         specifier: ^12.12.1
         version: 12.18.0

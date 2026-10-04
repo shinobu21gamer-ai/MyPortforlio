@@ -1,86 +1,103 @@
 ---
 import LetterGlitch from "../React/LetterGlitch.tsx";
-import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
+
+const skills = [
+  "React", "Next.js", "Astro", "TypeScript", "TailwindCSS",
+  "Node.js", "Firebase", "Supabase", "MySQL", "Bash", "Git",
+  "Capacitor", "Vercel", "Render",
+];
 ---
 
-<section class="text-[var(--white)] mt-12 md:mt-0" id="home">
-  <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
-    <div class="text-left space-y-4">
-      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
-        Hi, I'm Venerable Ian Rhod
-      </p>
-      <div
-        class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
+<section id="home" class="relative flex flex-col overflow-hidden">
+  <div class="absolute inset-x-0 top-0 h-[100svh]">
+    <LetterGlitch client:load />
+  </div>
+
+
+  <!-- Hero copy rides above the canvas. -->
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 pb-16 pt-28 sm:px-10 md:pt-24">
+    <p class="reveal mb-6 inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--line)] bg-[var(--panel)]/70 px-4 py-1.5 font-mono text-[11px] tracking-[0.18em] uppercase text-[var(--ink-dim)] backdrop-blur-sm">
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--acid)] opacity-60"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--acid)]"></span>
+      </span>
+      open for work — q3 2026
+    </p>
+
+    <h1 class="reveal text-[clamp(2.6rem,7.5vw,6rem)] font-semibold leading-[0.98] tracking-tight text-[var(--ink)]" style="transition-delay: 90ms">
+      Ian Rhod Venerable
+    </h1>
+
+    <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-[var(--ink-dim)] sm:text-xl" style="transition-delay: 180ms">
+      I build web & mobile systems that don't fall over at 9&nbsp;AM —
+      HRMS/POS platforms, community apps, and the odd ridiculous side project.
+      Based in Trece Martires, Cavite. Shipping since I could spell{" "}
+      <span class="text-[var(--acid)]">console.log</span>.
+    </p>
+
+    <div class="reveal mt-10 flex flex-wrap items-center gap-4" style="transition-delay: 270ms">
+      <a
+        href="#projects"
+        class="group inline-flex items-center gap-2 rounded-full bg-[var(--acid)] px-7 py-3.5 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_36px_rgba(200,255,77,0.28)]"
       >
-        <h1
-          class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none"
-        >
-          My <br /> Portfolio
-        </h1>
-        <p class="text-md md:text-2xl text-[var(--white-icon)]">
-          Me, myself, and the work I build.
-        </p>
-      </div>
-      <div class="flex justify-start gap-2 pt-3 md:pt-6">
-        <a
-          target="_blank"
-          href="mailto:shinobu21gamer@gmail.com"
-          aria-label="Email"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="2.1em"
-            height="2.1em"
-            viewBox="0 0 24 24"
+        See the work
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+      <a
+        href="mailto:shinobu21gamer@gmail.com?subject=Let's%20talk%20—%20saw%20your%20portfolio"
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--panel)]/60 px-7 py-3.5 text-sm font-semibold text-[var(--ink)] backdrop-blur-sm transition-all duration-300 hover:border-[var(--acid)]/60 hover:text-[var(--acid)]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="m18.73 5.41-1.28 1L12 10.46 6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64"/>
+        </svg>
+        Hire me
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="relative z-10 mx-auto mb-10 flex flex-col items-center gap-2 text-[var(--ink-faint)]">
+    <span class="font-mono text-[10px] tracking-[0.3em] uppercase">scroll</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="animate-bounce">
+      <path d="M12 5v14M6 13l6 6 6-6"/>
+    </svg>
+  </div>
+
+  <!-- Marquee: tech, not template noise. -->
+  <div class="relative z-10 border-y border-[var(--line)] bg-[var(--panel)]/50 py-5 backdrop-blur-sm">
+    <div class="flex overflow-hidden" style="mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent)">
+      <div class="animate-marquee flex w-max items-center gap-10 pr-10">
+        {[...skills, ...skills].map((skill, i) => (
+          <span
+            class="flex items-center gap-3 whitespace-nowrap text-sm text-[var(--ink-dim)]"
+            aria-hidden={i >= skills.length ? "true" : "false"}
           >
-            <path
-              fill="currentColor"
-              d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64"
-            ></path>
-          </svg>
-        </a>
+            <span class="h-1 w-1 rounded-full bg-[var(--acid)]/70"></span>
+            {skill}
+          </span>
+        ))}
       </div>
     </div>
+  </div>
 
-    <LogoWall />
-
-    <div class="flex flex-col lg:flex-row items-center gap-8">
-      <SkillsList client:load />
-      <div
-        class="flex justify-center md:w-full md:h-[292px] size-[290px] pt-3 md:pt-9 md:ml-16"
-      >
-        <LetterGlitch
-          client:load
-          glitchColors={["#5e4491", "#A476FF", "#241a38"]}
-          glitchSpeed={33}
-          centerVignette={false}
-          outerVignette={true}
-          smooth={true}
-        />
-      </div>
-    </div>
+  <!-- What I do — recruiter scan, one glance. -->
+  <div class="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 sm:px-10">
+    <SkillsList client:load />
   </div>
 </section>
 
 <style is:global>
-  .shiny-sec {
-    background: linear-gradient(135deg, #a476ff 25%, #eee5ff 50%, #a476ff 75%);
-    background-size: 400% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shine 3s linear infinite;
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
   }
-
-  @keyframes shine {
-    0% {
-      background-position: 100% 50%;
-    }
-    30%,
-    70% {
-      background-position: 0% 50%;
-    }
+  .animate-marquee {
+    animation: marquee 38s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
   }
 </style>
